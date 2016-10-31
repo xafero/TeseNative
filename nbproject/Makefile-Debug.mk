@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -38,6 +38,17 @@ OBJECTFILES= \
 	${OBJECTDIR}/TeseNative/Core/Tese.o \
 	${OBJECTDIR}/TeseNative/Core/TeseBuilder.o
 
+# Test Directory
+TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES= \
+	${TESTDIR}/TestFiles/f1
+
+# Test Object Files
+TESTOBJECTFILES= \
+	${TESTDIR}/TeseNative.Tests/Core/TeseTest.o \
+	${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o
 
 # C Compiler Flags
 CFLAGS=
@@ -61,20 +72,76 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
 ${OBJECTDIR}/TeseNative/Core/Tese.o: TeseNative/Core/Tese.cpp
 	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp
 
 ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o: TeseNative/Core/TeseBuilder.cpp
 	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o TeseNative/Core/TeseBuilder.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o TeseNative/Core/TeseBuilder.cpp
 
 # Subprojects
 .build-subprojects:
+
+# Build Test Targets
+.build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
+.build-tests-subprojects:
+
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
+
+
+${TESTDIR}/TeseNative.Tests/Core/TeseTest.o: TeseNative.Tests/Core/TeseTest.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Core
+	${RM} "$@.d"
+	$(COMPILE.cc) -g `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o TeseNative.Tests/Core/TeseTest.cpp
+
+
+${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o: TeseNative.Tests/Core/TeseTestRunner.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Core
+	${RM} "$@.d"
+	$(COMPILE.cc) -g `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o TeseNative.Tests/Core/TeseTestRunner.cpp
+
+
+${OBJECTDIR}/TeseNative/Core/Tese_nomain.o: ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp 
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/TeseNative/Core/Tese.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o TeseNative/Core/Tese.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/TeseNative/Core/Tese.o ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o;\
+	fi
+
+${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o: ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o TeseNative/Core/TeseBuilder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o TeseNative/Core/TeseBuilder.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o;\
+	fi
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
