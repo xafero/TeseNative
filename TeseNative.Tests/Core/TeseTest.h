@@ -4,22 +4,26 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TeseTest : public CPPUNIT_NS::TestFixture {
-    CPPUNIT_TEST_SUITE(TeseTest);
+namespace TeseNativeTests {
 
-    CPPUNIT_TEST(testTese);
+    class TeseTest : public CPPUNIT_NS::TestFixture {
+        CPPUNIT_TEST_SUITE(TeseTest);
 
-    CPPUNIT_TEST_SUITE_END();
+        CPPUNIT_TEST(testTese);
 
-public:
-    TeseTest();
-    virtual ~TeseTest();
-    void setUp();
-    void tearDown();
+        CPPUNIT_TEST_SUITE_END();
 
-private:
-    void testTese();
+    public:
+        TeseTest();
+        virtual ~TeseTest();
+        void setUp();
+        void tearDown();
 
-};
+    private:
+        void testTese();
+
+    };
+
+}
 
 #endif /* TESETEST_H */
