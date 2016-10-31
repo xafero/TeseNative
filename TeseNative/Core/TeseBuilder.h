@@ -2,6 +2,8 @@
 #ifndef TESEBUILDER_H
 #define TESEBUILDER_H
 
+#include "Tese.h"
+
 namespace TeseNative {
 
     class TeseBuilder {
@@ -9,8 +11,11 @@ namespace TeseNative {
         TeseBuilder();
         TeseBuilder(const TeseBuilder& orig);
         virtual ~TeseBuilder();
+        TeseBuilder* skipNull(bool);
+        bool isSkipNull();
+        Tese* create();
     private:
-
+        bool nullSkipped;
     };
 
 }

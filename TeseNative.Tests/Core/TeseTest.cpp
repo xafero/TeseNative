@@ -12,9 +12,12 @@ TeseNativeTests::TeseTest::~TeseTest() {
 }
 
 void TeseNativeTests::TeseTest::setUp() {
+    TeseBuilder* builder = new TeseBuilder();
+    tese = builder->skipNull(true)->create();
 }
 
 void TeseNativeTests::TeseTest::tearDown() {
+    tese = NULL;
 }
 
 void TeseNativeTests::TeseTest::testTese() {

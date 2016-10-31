@@ -4,6 +4,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+using namespace TeseNative;
+
 namespace TeseNativeTests {
 
     class TeseTest : public CPPUNIT_NS::TestFixture {
@@ -20,6 +22,7 @@ namespace TeseNativeTests {
         void tearDown();
 
     private:
+        Tese* tese;
         void testTese();
 
     };
