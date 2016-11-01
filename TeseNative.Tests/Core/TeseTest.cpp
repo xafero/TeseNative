@@ -20,6 +20,10 @@ void TeseNativeTests::TeseTest::tearDown() {
     tese = NULL;
 }
 
-void TeseNativeTests::TeseTest::testTese() {
+void TeseNativeTests::TeseTest::testSerialize() {
+    CPPUNIT_ASSERT(true);
+}
+
+void TeseNativeTests::TeseTest::testDeserialize() {
     CPPUNIT_ASSERT(true);
 }

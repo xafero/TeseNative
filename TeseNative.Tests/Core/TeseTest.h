@@ -11,7 +11,8 @@ namespace TeseNativeTests {
     class TeseTest : public CPPUNIT_NS::TestFixture {
         CPPUNIT_TEST_SUITE(TeseTest);
 
-        CPPUNIT_TEST(testTese);
+        CPPUNIT_TEST(testSerialize);
+        CPPUNIT_TEST(testDeserialize);
 
         CPPUNIT_TEST_SUITE_END();
 
@@ -23,7 +24,8 @@ namespace TeseNativeTests {
 
     private:
         Tese* tese;
-        void testTese();
+        void testSerialize();
+        void testDeserialize();
 
     };
 
