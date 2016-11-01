@@ -2,7 +2,7 @@
 #ifndef TESETEST_H
 #define TESETEST_H
 
-#include "../Example/Address.h"
+#include "../Example/Customer.h"
 
 #include <cppunit/extensions/HelperMacros.h>
 
