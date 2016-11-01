@@ -5,6 +5,7 @@ TeseNative::TeseBuilder::TeseBuilder() {
 }
 
 TeseNative::TeseBuilder::TeseBuilder(const TeseBuilder& orig) {
+    nullSkipped = orig.nullSkipped;
 }
 
 TeseNative::TeseBuilder::~TeseBuilder() {
@@ -12,6 +13,7 @@ TeseNative::TeseBuilder::~TeseBuilder() {
 
 TeseNative::TeseBuilder* TeseNative::TeseBuilder::skipNull(bool skip) {
     nullSkipped = skip;
+    return this;
 }
 
 bool TeseNative::TeseBuilder::isSkipNull() {
@@ -19,6 +21,5 @@ bool TeseNative::TeseBuilder::isSkipNull() {
 }
 
 TeseNative::Tese* TeseNative::TeseBuilder::create() {
-    Tese* tese = new Tese();
-    return tese;
+    return new Tese();
 }
