@@ -2,6 +2,12 @@
 #ifndef TESE_H
 #define TESE_H
 
+#include <fstream>
+#include "../Error/TeseReadException.h"
+#include "../Error/TeseWriteException.h"
+
+using namespace std;
+
 namespace TeseNative {
 
     class Tese {
@@ -9,8 +15,10 @@ namespace TeseNative {
         Tese();
         Tese(const Tese& orig);
         virtual ~Tese();
-    private:
-
+        template<class I>
+        void serialize(I, ofstream*);
+        template<class O>
+        O deserialize(ifstream*);
     };
 
 }
