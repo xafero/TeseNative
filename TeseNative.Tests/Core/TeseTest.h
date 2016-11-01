@@ -2,8 +2,12 @@
 #ifndef TESETEST_H
 #define TESETEST_H
 
+#include "../Example/Address.h"
+
 #include <cppunit/extensions/HelperMacros.h>
 
+using namespace std;
+using namespace Examples;
 using namespace TeseNative;
 
 namespace TeseNativeTests {
