@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>TeseNative/Core/Tese.h</itemPath>
       <itemPath>TeseNative/Core/TeseBuilder.h</itemPath>
+      <itemPath>TeseNative/Error/TeseReadException.h</itemPath>
+      <itemPath>TeseNative/Error/TeseWriteException.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,6 +18,8 @@
                    projectFiles="true">
       <itemPath>TeseNative/Core/Tese.cpp</itemPath>
       <itemPath>TeseNative/Core/TeseBuilder.cpp</itemPath>
+      <itemPath>TeseNative/Error/TeseReadException.cpp</itemPath>
+      <itemPath>TeseNative/Error/TeseWriteException.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -25,6 +29,14 @@
                      displayName="TeseNativeTest"
                      projectFiles="true"
                      kind="TEST">
+        <itemPath>TeseNative.Tests/Example/Address.cpp</itemPath>
+        <itemPath>TeseNative.Tests/Example/Address.h</itemPath>
+        <itemPath>TeseNative.Tests/Example/City.cpp</itemPath>
+        <itemPath>TeseNative.Tests/Example/City.h</itemPath>
+        <itemPath>TeseNative.Tests/Example/Customer.cpp</itemPath>
+        <itemPath>TeseNative.Tests/Example/Customer.h</itemPath>
+        <itemPath>TeseNative.Tests/Example/State.cpp</itemPath>
+        <itemPath>TeseNative.Tests/Example/State.h</itemPath>
         <itemPath>TeseNative.Tests/Core/TeseTest.cpp</itemPath>
         <itemPath>TeseNative.Tests/Core/TeseTest.h</itemPath>
         <itemPath>TeseNative.Tests/Core/TeseTestRunner.cpp</itemPath>
@@ -46,6 +58,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
       </compileType>
       <item path="TeseNative.Tests/Core/TeseTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -56,6 +71,31 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="TeseNative.Tests/Example/Address.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Address.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/City.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/City.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Customer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Customer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/State.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="TeseNative/Core/Tese.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TeseNative/Core/Tese.h" ex="false" tool="3" flavor2="0">
@@ -64,11 +104,35 @@
       </item>
       <item path="TeseNative/Core/TeseBuilder.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="TeseNative/Error/TeseReadException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseReadException.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseWriteException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseWriteException.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
         </cTool>
         <ccTool>
+          <incFile>
+            <pElem>TeseNative/Core/Tese.h</pElem>
+            <pElem>TeseNative/Core/TeseBuilder.h</pElem>
+          </incFile>
           <commandLine>`cppunit-config --cflags`</commandLine>
         </ccTool>
         <linkerTool>
@@ -108,6 +172,31 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="TeseNative.Tests/Example/Address.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Address.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/City.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/City.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Customer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/Customer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TeseNative.Tests/Example/State.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="TeseNative/Core/Tese.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TeseNative/Core/Tese.h" ex="false" tool="3" flavor2="0">
@@ -115,6 +204,26 @@
       <item path="TeseNative/Core/TeseBuilder.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TeseNative/Core/TeseBuilder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseReadException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseReadException.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseWriteException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="TeseNative/Error/TeseWriteException.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>

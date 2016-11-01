@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
-CND_DLIB_EXT=so
+CND_PLATFORM=Cygwin-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -36,7 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/TeseNative/Core/Tese.o \
-	${OBJECTDIR}/TeseNative/Core/TeseBuilder.o
+	${OBJECTDIR}/TeseNative/Core/TeseBuilder.o \
+	${OBJECTDIR}/TeseNative/Error/TeseReadException.o \
+	${OBJECTDIR}/TeseNative/Error/TeseWriteException.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -48,7 +50,11 @@ TESTFILES= \
 # Test Object Files
 TESTOBJECTFILES= \
 	${TESTDIR}/TeseNative.Tests/Core/TeseTest.o \
-	${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o
+	${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o \
+	${TESTDIR}/TeseNative.Tests/Example/Address.o \
+	${TESTDIR}/TeseNative.Tests/Example/City.o \
+	${TESTDIR}/TeseNative.Tests/Example/Customer.o \
+	${TESTDIR}/TeseNative.Tests/Example/State.o
 
 # C Compiler Flags
 CFLAGS=
@@ -68,21 +74,31 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT}
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNativeRepo.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT}: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNativeRepo.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNative.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libTeseNativeRepo.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/TeseNative/Core/Tese.o: TeseNative/Core/Tese.cpp
 	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp
+	$(COMPILE.cc) -g -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp
 
 ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o: TeseNative/Core/TeseBuilder.cpp
 	${MKDIR} -p ${OBJECTDIR}/TeseNative/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o TeseNative/Core/TeseBuilder.cpp
+	$(COMPILE.cc) -g -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o TeseNative/Core/TeseBuilder.cpp
+
+${OBJECTDIR}/TeseNative/Error/TeseReadException.o: TeseNative/Error/TeseReadException.cpp
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Error
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Error/TeseReadException.o TeseNative/Error/TeseReadException.cpp
+
+${OBJECTDIR}/TeseNative/Error/TeseWriteException.o: TeseNative/Error/TeseWriteException.cpp
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Error
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Error/TeseWriteException.o TeseNative/Error/TeseWriteException.cpp
 
 # Subprojects
 .build-subprojects:
@@ -91,21 +107,45 @@ ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o: TeseNative/Core/TeseBuilder.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/TeseNative.Tests/Example/Address.o ${TESTDIR}/TeseNative.Tests/Example/City.o ${TESTDIR}/TeseNative.Tests/Example/Customer.o ${TESTDIR}/TeseNative.Tests/Example/State.o ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
+
+
+${TESTDIR}/TeseNative.Tests/Example/Address.o: TeseNative.Tests/Example/Address.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Example
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Example/Address.o TeseNative.Tests/Example/Address.cpp
+
+
+${TESTDIR}/TeseNative.Tests/Example/City.o: TeseNative.Tests/Example/City.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Example
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Example/City.o TeseNative.Tests/Example/City.cpp
+
+
+${TESTDIR}/TeseNative.Tests/Example/Customer.o: TeseNative.Tests/Example/Customer.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Example
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Example/Customer.o TeseNative.Tests/Example/Customer.cpp
+
+
+${TESTDIR}/TeseNative.Tests/Example/State.o: TeseNative.Tests/Example/State.cpp 
+	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Example
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Example/State.o TeseNative.Tests/Example/State.cpp
 
 
 ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o: TeseNative.Tests/Core/TeseTest.cpp 
 	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o TeseNative.Tests/Core/TeseTest.cpp
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTest.o TeseNative.Tests/Core/TeseTest.cpp
 
 
 ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o: TeseNative.Tests/Core/TeseTestRunner.cpp 
 	${MKDIR} -p ${TESTDIR}/TeseNative.Tests/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o TeseNative.Tests/Core/TeseTestRunner.cpp
+	$(COMPILE.cc) -g -include TeseNative/Core/Tese.h -include TeseNative/Core/TeseBuilder.h -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TeseNative.Tests/Core/TeseTestRunner.o TeseNative.Tests/Core/TeseTestRunner.cpp
 
 
 ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o: ${OBJECTDIR}/TeseNative/Core/Tese.o TeseNative/Core/Tese.cpp 
@@ -116,7 +156,7 @@ ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o: ${OBJECTDIR}/TeseNative/Core/Tese.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o TeseNative/Core/Tese.cpp;\
+	    $(COMPILE.cc) -g -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o TeseNative/Core/Tese.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/TeseNative/Core/Tese.o ${OBJECTDIR}/TeseNative/Core/Tese_nomain.o;\
 	fi
@@ -129,9 +169,35 @@ ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o: ${OBJECTDIR}/TeseNative/Core/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o TeseNative/Core/TeseBuilder.cpp;\
+	    $(COMPILE.cc) -g -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o TeseNative/Core/TeseBuilder.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/TeseNative/Core/TeseBuilder.o ${OBJECTDIR}/TeseNative/Core/TeseBuilder_nomain.o;\
+	fi
+
+${OBJECTDIR}/TeseNative/Error/TeseReadException_nomain.o: ${OBJECTDIR}/TeseNative/Error/TeseReadException.o TeseNative/Error/TeseReadException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Error
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/TeseNative/Error/TeseReadException.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Error/TeseReadException_nomain.o TeseNative/Error/TeseReadException.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/TeseNative/Error/TeseReadException.o ${OBJECTDIR}/TeseNative/Error/TeseReadException_nomain.o;\
+	fi
+
+${OBJECTDIR}/TeseNative/Error/TeseWriteException_nomain.o: ${OBJECTDIR}/TeseNative/Error/TeseWriteException.o TeseNative/Error/TeseWriteException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/TeseNative/Error
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/TeseNative/Error/TeseWriteException.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TeseNative/Error/TeseWriteException_nomain.o TeseNative/Error/TeseWriteException.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/TeseNative/Error/TeseWriteException.o ${OBJECTDIR}/TeseNative/Error/TeseWriteException_nomain.o;\
 	fi
 
 # Run Test Targets
