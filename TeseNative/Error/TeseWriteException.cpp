@@ -21,3 +21,8 @@ const char* TeseNative::TeseWriteException::what() const noexcept {
 exception TeseNative::TeseWriteException::getCause() noexcept {
     return parent;
 }
+
+TeseNative::TeseWriteException::TeseWriteException(string field,
+        const exception& orig) noexcept : TeseWriteException(orig) {
+    message = printf("%s \n %s", message.c_str(), field.c_str());
+}

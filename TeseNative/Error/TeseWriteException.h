@@ -9,7 +9,7 @@ using namespace std;
 
 namespace TeseNative {
 
-    class TeseWriteException : public exception{
+    class TeseWriteException : public exception {
     public:
         TeseWriteException() noexcept;
         TeseWriteException(const exception& orig) noexcept;
