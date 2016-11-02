@@ -11,7 +11,7 @@ TeseNative::TeseReadException::TeseReadException(
     message = printf("%s \n %s", message.c_str(), orig.what());
 }
 
-TeseNative::TeseReadException::~TeseReadException() {
+TeseNative::TeseReadException::~TeseReadException() noexcept {
 }
 
 const char* TeseNative::TeseReadException::what() const noexcept {
