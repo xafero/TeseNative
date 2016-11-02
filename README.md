@@ -14,6 +14,6 @@ writer->flush();
 writer->close();
 
 ifstream* reader = new ifstream("test.txt");
-adr = tese->deserialize<Address*>(reader);
+adr = tese->deserialize<Address>(reader);
 reader->close();
 ```

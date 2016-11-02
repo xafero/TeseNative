@@ -15,10 +15,15 @@ namespace TeseNative {
         Tese();
         Tese(const Tese& orig);
         virtual ~Tese();
-        template<class I>
-        void serialize(I, ofstream*);
-        template<class O>
-        O deserialize(ifstream*);
+
+        template<class O> O* deserialize(ifstream* in) {
+            throw new TeseReadException();
+        }
+
+        template<class I> void serialize(I* in, ofstream* out) {
+            throw new TeseWriteException();
+        }
+
     };
 
 }

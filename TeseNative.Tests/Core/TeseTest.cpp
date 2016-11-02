@@ -27,7 +27,7 @@ void TeseNativeTests::TeseTest::testSerialize() {
             'm', 42, 13, 97.5f, 7, 10, 1, time(0));
 
     ofstream* out = new ofstream("test.tmp");
-    // tese->serialize(cus, out);
+    tese->serialize(cus, out);
     out->flush();
     out->close();
 
@@ -36,7 +36,7 @@ void TeseNativeTests::TeseTest::testSerialize() {
 
 void TeseNativeTests::TeseTest::testDeserialize() {
     ifstream* in = new ifstream("test.tmp");
-    // Customer* cus = tese->deserialize<Customer*>(in);
+    Customer* cus = tese->deserialize<Customer>(in);
     in->close();
 
     CPPUNIT_ASSERT(true);
